@@ -1,0 +1,7 @@
+{% form_theme form _self %}
+
+{%- block form_row -%}
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+{%- endblock form_row -%}

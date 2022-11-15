@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    
+    <div class="cards c_2">
+        <span class="text chat_text" style="text-align:center;">
+            <h1>Czat</h1>
+        </span>
+        <span class="chat" data-uuid="{{app.user.uuid}}">
+            <span class="chat_info">
+                <span class="image_1"><img src="/images/user.png" class="profile_image"></span>
+                <span class="text_3 flname">Ładowanie</span>
+                <span class="text_4 uuid">uuid: N/A</span>
+                <span class="s_info"><span class="status" style="background:#26de81;color:#ffffff;padding:0 5px 0 5px;border-radius:5px;">N/A</span></span>
+                <span class="links"><a class="friend_inf"><i class='bx bxs-info-circle icon' ></i></a></span>
+            </span>
+            <span class="messages">
+                
+                <div class="modal-loader">
+                    <div class="loader"></div>
+                </div>
+            </span>
+            <span class="send_area">
+                <div class="search-box">
+                    <i class='bx bxs-message icon'></i>
+                    <input type="text" placeholder="Wiadomość..." id="wiadomosc">
+                </div>
+                <div class="send_button">
+                    <a><i class='bx bx-send icon' ></i></a>
+                </div>
+            </span>
+        </span>
+    </div>
+    <script>
+        $(".home").css("display", "flex");
+    </script>
+{% endblock %}

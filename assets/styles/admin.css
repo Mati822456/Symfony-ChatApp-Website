@@ -1,0 +1,653 @@
+.buttons .edit_modal_user, 
+.buttons .edit_modal_inv,
+.buttons .edit_modal_notif,
+.buttons .edit_modal_friend{
+    background-color: #2ecc71;
+    text-decoration: none;
+}
+.buttons .edit_modal_user:hover, 
+.buttons .edit_modal_inv:hover,
+.buttons .edit_modal_notif:hover,
+.buttons .edit_modal_friend:hover{
+    background-color: #27ae60;
+}
+/* ADMIN PANEL */
+
+.admin {
+    margin: 15px 15px 15px 30px;
+}
+.admin header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--sidebar-color);
+    color: var(--text-color);
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.admin header img{
+    min-width: 48px;
+    width: 48px;
+    height: 48px;
+    margin-right: 8px;
+    padding: 3px;
+    border-radius: 50%;
+    background-color: #ecf0f1;
+}
+body.dark .admin header img{
+    background-color: var(--primary-color);
+}
+.admin header div:nth-child(1){
+    font-size: 20px;
+}
+.admin header div:nth-child(2){
+    display: flex;
+    align-items: center;
+}
+.admin main{
+    margin-top: 10px;
+    color: var(--text-color);
+    background-color: var(--sidebar-color);
+    width: 100%;
+    min-height: calc(100vh - 108px);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 10px;
+    display: flex;
+}
+.admin main .info, .actions{
+    width: 50%;
+}
+
+.info_1{
+    margin: 10px;
+}
+.info_1 .info__text{
+    padding: 20px;
+    border-left: var(--text-color) 3px solid;
+    margin: 8px;
+    font-size: 1.15em;
+    font-weight: 500;
+    background: #E5E5E5;
+    border-radius: 10px;
+    
+}
+
+body.dark .info_1 .info__text{
+    background: #3d3d3d;
+}
+
+.info_1 .info__number{
+    color: #fff;
+    background: #20bf6b;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+.banners {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .banner {
+    margin: 20px 20px 0 20px;
+    padding: 20px;
+    width: 100%;
+    min-height: 131px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  .banner:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.01);
+  }
+  
+  .banner__link,
+  .banner__icon {
+    position: relative;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .banner__link::after {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    content: "";
+    width: 0%;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: all 0.5s;
+  }
+  
+  .banner__link:hover::after {
+    width: 100%;
+  }
+  
+  .banner__icon {
+    font-size: 22px;
+  }
+  
+  .banner__title {
+    text-align: center;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 22px;
+  }
+  
+  .banner__apply {
+    align-self: center;
+  }
+  
+  /* CARD BACKGROUNDS */
+  
+  .banner-1 {
+    background: radial-gradient(#1fe4f5, #3fbafe);
+  }
+  
+  .banner-2 {
+    background: radial-gradient(#fbc1cc, #fa99b2);
+  }
+  
+  .banner-3 {
+    background: radial-gradient(#76b2fe, #b69efe);
+  }
+  
+  .banner-4 {
+    background: radial-gradient(#60efbc, #58d5c9);
+  }
+  
+  .banner-5 {
+    background: radial-gradient(#f588d8, #c0a3e5);
+  }
+
+.admin.users main,
+.admin.invitations main,
+.admin.notifications main,
+.admin.messages main,
+.admin.friends_admin main{
+    flex-direction: column;
+}
+.filter{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+}
+.filter input{
+    width: calc(100% - 250px);
+    padding: 12px;
+    border: none;
+    background-color: var(--primary-color-light);
+    color: var(--text-color);
+    border-radius: 4px;
+}
+
+.filter select{
+    width: 140px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color-light);
+    color: var(--text-color);
+    height: 50px;
+}
+.admin.notifications .select2.select2-container {
+    width: calc(100% - 105px) !important;
+}
+.admin-modal .wrapper form .select2.select2-container{
+    width: 100% !important;
+}
+.admin.invitations .select2.select2-container, .admin.messages .select2.select2-container, .admin.friends_admin .select2.select2-container{
+    width: calc(50% - 60px) !important;
+  }
+  
+  .select2.select2-container .select2-selection {
+    /* border: 1px solid #ccc; */
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: 50px !important;
+    margin-bottom: 15px;
+    outline: none !important;
+    transition: all .15s ease-in-out;
+    
+  }
+  
+  .select2.select2-container .select2-selection .select2-selection__rendered {
+    color: var(--text-color);
+    background-color: var(--primary-color-light);
+    line-height: 51px !important;
+    padding-right: 33px;
+  }
+  
+  .select2.select2-container .select2-selection .select2-selection__arrow {
+    background: var(--primary-color-light);
+    border-left: 1px solid #ccc;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+    height: 50px !important;
+    width: 33px;
+  }
+  
+  .select2.select2-container.select2-container--open .select2-selection.select2-selection--single {
+    /* background: #f8f8f8; */
+    background-color: var(--primary-color-light);
+  }
+  
+  .select2.select2-container.select2-container--open .select2-selection.select2-selection--single .select2-selection__arrow {
+    -webkit-border-radius: 0 3px 0 0;
+    -moz-border-radius: 0 3px 0 0;
+    border-radius: 0 3px 0 0;
+  }
+  
+  .select2.select2-container.select2-container--open .select2-selection.select2-selection--multiple {
+    border: 1px solid #34495e;
+  }
+  
+  .select2.select2-container .select2-selection--multiple {
+    height: auto;
+    min-height: 50px;
+  }
+  
+  .select2.select2-container .select2-selection--multiple .select2-search--inline .select2-search__field {
+    margin-top: 0;
+    height: 50px;
+  }
+  
+  .select2.select2-container .select2-selection--multiple .select2-selection__rendered {
+    display: block;
+    padding: 0 4px;
+    line-height: 29px;
+  }
+  
+  .select2.select2-container .select2-selection--multiple .select2-selection__choice {
+    background-color: var(--primary-color-light);
+    /* border: 1px solid #ccc; */
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 4px 4px 0 0;
+    padding: 0 6px 0 22px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    position: relative;
+  }
+  
+  .select2.select2-container .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    margin: 0;
+    text-align: center;
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .select2-container .select2-dropdown {
+    background: transparent;
+    border: none;
+    margin-top: -5px;
+  }
+  
+  .select2-container .select2-dropdown .select2-search {
+    padding: 0;
+  }
+  
+  .select2-container .select2-dropdown .select2-search input {
+    outline: none !important;
+    border: 1px solid #34495e !important;
+    border-bottom: none !important;
+    padding: 4px 6px !important;
+    background-color: var(--primary-color-light);
+    color: var(--text-color);
+  }
+  
+  .select2-container .select2-dropdown .select2-results {
+    padding: 0;
+  }
+  
+  .select2-container .select2-dropdown .select2-results ul {
+    background: var(--primary-color-light) !important;
+    color: var(--text-color);
+    border: 1px solid #34495e;
+  }
+  
+  .select2-container .select2-dropdown .select2-results ul .select2-results__option--highlighted[aria-selected] {
+    background-color: #3498db;
+  } 
+  .select2-container .select2-dropdown .select2-results ul .select2-results__option[aria-selected=true]{
+    background-color: #62afe3;
+    color: white;
+  }
+  
+
+.filter button{
+    width: 100px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.users_list, .invitations_list, .notifications_list, .messages_list, .friends_list{
+    margin-top: 20px;
+}
+
+table img{
+    min-width: 48px;
+    width: 48px;
+    height: 48px;
+    padding: 3px;
+    border-radius: 50%;
+    background-color: #ecf0f1;
+}
+body.dark table img{
+    background-color: var(--primary-color);
+}
+table {
+    border: 1px solid var(--status-color);
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+  }
+  
+  table tr {
+    background-color: var(--table-tr-background);
+    border: 1px solid var(--status-color);
+    padding: .35em;
+  }
+  
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center;
+  }
+  
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  
+  table td{
+    font-size: .90em;
+  }
+
+.user_delete,
+.user_lock,
+.user_edit,
+.invitation_delete,
+.invitation_edit,
+.friend_delete,
+.friend_edit,
+.notification_edit,
+.notification_delete,
+.messages_clear{
+    border: none; 
+    color: white; 
+    padding: 6px 8px; 
+    margin: 2px;
+    font-size: 14px; 
+    cursor: pointer; 
+    border-radius: 8px;
+}
+.user_delete, .invitation_delete, .friend_delete, .notification_delete, .messages_clear{
+    background-color: #e74c3c; 
+}
+.user_lock{
+    background-color: #70a1ff;
+}
+.user_edit, .invitation_edit, .friend_edit, .notification_edit{
+    background-color: #2ed573;
+}
+
+.body_invitations_list tr td span, .body_notifications_list tr td:nth-child(1) span, .body_messages_list tr td span, .body_friends_list tr td span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin-left: 45px;
+    overflow: auto;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.7);
+}
+.admin-modal .wrapper{
+    background-color: var(--sidebar-color);
+    padding: 30px;
+    width: 400px;
+    border-radius: 10px;
+}
+.admin-modal .wrapper form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.admin-modal .wrapper form span img{
+    height: 192px;
+    width: 192px;
+    background-color: #ecf0f1;
+    border-radius: 50%;
+    padding: 10px;
+}
+body.dark .admin-modal .wrapper form span img{
+    background-color: var(--primary-color);
+}
+.admin-modal .wrapper form label{
+    color: var(--text-color);
+    margin: 5px;
+    width: 100%;
+    font-size: 18px;
+}
+.admin-modal .wrapper form .buttons{
+    margin-top: 16px;
+}
+.admin-modal .wrapper form input, .admin-modal .wrapper form select{
+    color: var(--text-color);
+    background-color: var(--primary-color-light);
+    padding: 5px;
+    font-size: 18px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+}
+.admin-modal h2{
+    color: var(--text-color);
+    margin: 10px;
+}
+.admin-modal .wrapper input[type=checkbox]{
+    width: 20px;
+    height: 20px;
+}
+.more_records{
+    display: inline-block;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.more_records:nth-child(1){
+    background-color: #f1c40f;
+}
+.more_records:nth-child(2){
+    background-color: #e67e22;
+}
+.more_records:nth-child(3){
+    background-color: #e74c3c;
+}
+.more_records:nth-child(4){
+    background-color: #2980b9;
+}
+
+@media only screen and (max-width: 450px) {
+  .sidebar.close ~ .home{
+    left: 74px !important;
+    width: calc(100% - 78px) !important;
+  }
+  .admin{
+    margin: 15px 3px 15px 0;
+  }
+  .admin-modal{
+    margin-left: 35px;
+  }
+  .admin-modal .wrapper{
+    width: 300px;
+  }
+  .admin .info_1{
+    margin: 0;
+  }
+  .admin .banners .banner{
+    margin: 10px 0 0 0;
+  }
+  .admin header div:nth-child(1){
+    font-size: 10px !important;
+  }
+  .admin header div:nth-child(2){
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+    .wrapper .text_1{
+        font-size: 18px;
+    }
+    .wrapper .text_2{
+        font-size: 14px;
+    }
+    .wrapper .buttons a{
+        font-size: 12px;
+    }
+    .admin-modal .wrapper form input, .admin-modal .wrapper form select{
+      font-size: 16px;
+    }
+    .admin-modal .wrapper form label{
+      font-size: 16px;
+    }
+}
+@media only screen and (max-width: 600px){
+    .filter{
+        flex-direction: column;
+        height: auto;
+    }
+    .filter input, 
+    .filter select,
+    .filter button{
+        width: 100%;
+        margin-top: 8px;
+    }
+    .admin.invitations .select2.select2-container,
+    .admin.notifications .select2.select2-container,
+    .admin.messages .select2.select2-container,
+    .admin.friends_admin .select2.select2-container{
+        width: 100% !important;
+    }
+
+}
+@media only screen and (max-width: 470px) {
+    .admin main .info, .admin main .actions{
+        font-size: 12px;
+    }
+    .admin header div:nth-child(1){
+        font-size: 14px;
+    }
+    .banner__title{
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .admin main{
+        flex-direction: column;
+    }
+    .admin main .info, .admin main .actions{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    table {
+      border: 0;
+    }
+  
+    table caption {
+      font-size: 1.3em;
+    }
+    
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    
+    table tr {
+      border-bottom: 3px solid var(--status-color);
+      display: block;
+      margin-bottom: .625em;
+    }
+    
+    table td {
+      border-bottom: 1px solid var(--status-color);
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+    
+    table td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    
+    table td:last-child {
+      border-bottom: 0;
+    }
+
+    .body_invitations_list tr td span, .body_notifications_list tr td:nth-child(1) span, .body_messages_list tr td span, .body_friends_list tr td span{
+        justify-content: flex-end;
+    }
+  }

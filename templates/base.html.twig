@@ -2,18 +2,168 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="token" content="{{ app.user.apitoken }}">
+        <title>{% block title %}Chat!{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{asset('images/chat.png')}}">
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://kit.fontawesome.com/15901ecbea.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        
     </head>
-    <body>
+    <body {{ app.user.darktheme == 1 ? 'class = "dark"' : '' }}>
+
+        <div class="modal">
+
+            <div class="modal-content">
+                <span><img src="" class="profile_image_user"></span>
+                <span class="text_1 flname_user">N/A</span>
+                <span class="text_2 uuid_user">uuid: </span>
+                <span class="text_2 email_user">Ładowanie</span>
+                <span class="s_info_user">Ładowanie</span>
+                <span class="text_2 friends_user"><i class='bx bxs-user-detail icon'></i> Znajomi: N/A</span>
+                <span class="buttons">
+                    <a class="close_info_user">Zamknij <i class="fa-solid fa-xmark"></i></a>
+                </span>
+            </div>
+
+        </div>
+
+        <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    {% if app.user %}
+                        <img src="{{ asset('uploads/images/' ~ app.user.img) }}" alt="">
+                    {% else %}
+                        <img src="{{ asset('images/user.png') }}" alt="">
+                    {% endif %}
+                </span>
+
+                <div class="text logo-text">
+                    <span class="name">{{ app.user.email }}</span>
+                    <span class="role">
+                        {% if app.user.roles[0] == "ROLE_USER" %}
+                            <span class="status" style="background:#f6b93b;color:#ffffff;padding:0 5px 0 5px;border-radius:5px;">Użytkownik</span>
+                        {% endif %}
+                        {% if app.user.roles[0] == "ROLE_ADMIN" %}
+                            <span class="status" style="background:#e55039;color:#ffffff;padding:0 5px 0 5px;border-radius:5px;">Administrator</span>
+                        {% endif %}
+                        {% if app.user.roles[0] == "ROLE_MOD" %}
+                            <span class="status" style="background:#26de81;color:#ffffff;padding:0 5px 0 5px;border-radius:5px;">Moderator</span>
+                        {% endif %}
+                    </span>
+                    <span class="uuid_text">{{app.user.uuid}}</span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+
+                <p class="search-text">Podaj UUID użytkownika</p>  
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder="Szukaj..." id="search_user">
+                </li>
+
+                <ul class="menu-links">
+                    <li class="nav-link {{ app.request.pathinfo == '/chat' ? 'selected' : '' }}">
+                        <a href="/chat{{ app.user.lastchat ? '?uuid=' ~ app.user.lastchat : '' }}">
+                            <i class='bx bx-home-alt icon' ></i>
+                            <span class="text nav-text">Czat</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link {{ app.request.pathinfo == '/friends' ? 'selected' : '' }}">
+                        <a href="/friends">
+                            <i class='bx bx-user icon'></i>
+                            <span class="text nav-text">Znajomi</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link {{ app.request.pathinfo == '/inv' ? 'selected' : '' }}">
+                        <a href="/inv">
+                            <i class='bx bxs-user-plus icon'></i>
+                            <span class="text nav-text">Zaproszenia</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-link {{ app.request.pathinfo == '/notifications' ? 'selected' : '' }}">
+                        <a href="/notifications">
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">Powiadomienia</span>
+                        </a>
+                        <span class="icon-button__badge">{{to_read}}</span>
+                    </li>
+
+                    <li class="nav-link {{ '/account' in app.request.pathinfo ? 'selected' : '' }}">
+                        <a href="/account">
+                            <i class='bx bx-cog icon'></i>
+                            <span class="text nav-text">Ustawienia</span>
+                        </a>
+                    </li>
+                    <div class="line"></div>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD') %}
+                        <li class="nav-link {{ '/admin' in app.request.pathinfo ? 'selected' : '' }}">
+                            <a href="/admin">
+                                <i class='bx bxs-shield icon'></i>
+                                <span class="text nav-text">Panel Admin.</span>
+                            </a>
+                        </li>
+                        <div class="line"></div>
+                    {% endif %}
+                    {# <i class='bx bx-heart icon' ></i> #}
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="">
+                    {% if app.user %}
+                        <a href="/wyloguj">
+                            <i class='bx bx-log-out icon' ></i>
+                            <span class="text nav-text">Wyloguj</span>
+                        </a>
+                    {% else %}
+                        <a href="/login">
+                            <i class='bx bx-log-out icon' ></i>
+                            <span class="text nav-text">Zaloguj</span>
+                        </a>
+                        
+                    {% endif %}
+                </li>
+
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+                
+            </div>
+        </div>
+
+    </nav>
+    <input type="hidden" value="{{ app.user.id }}" name="8M52PFLzTJ">
+    <section class="home">
         {% block body %}{% endblock %}
+    </section>
     </body>
+
 </html>

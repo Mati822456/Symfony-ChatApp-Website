@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel Administracyjny{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('admincss') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div class="admin">
+        <header>
+            <div>Witaj w panelu administracyjnym!</div>
+            <div><img src="/uploads/images/{{app.user.img}}" alt="">{{app.user.firstname ~ ' ' ~ app.user.lastname}}</div>
+        </header>
+        <main>
+            <div class="info">
+                <div class="text_2">Informacje</div>
+                <div class="info_1">
+                    <div class="info__text">
+                        Wszystkich użytkowników: <span class="info__number">{{info.users}}</span>
+                    </div>
+                    <div class="info__text">
+                        Wszystkich wiadomości: <span class="info__number">{{info.messages}}</span>
+                    </div>
+                    <div class="info__text">
+                        Aktualnie zaproszeń: <span class="info__number">{{info.inv}}</span>
+                    </div>
+                    <div class="info__text">
+                        Aktualnie powiadomień: <span class="info__number">{{info.notif}}</span>
+                    </div>
+                    <div class="info__text">
+                        Wszystkich moderatorów: <span class="info__number">{{info.mods}}</span>
+                    </div>
+                    <div class="info__text">
+                        Zablokowanych użytkowników: <span class="info__number">{{info.blocked}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="text_2">Akcje</div>
+                <div class="banners">
+                    <div class="banner banner-1">
+                        <div class="banner__icon"><i class="fa-solid fa-users"></i></div>
+                        <h2 class="banner__title">Zarządzaj użytkownikami</h2>
+                        <p class="banner__apply">
+                            <a class="banner__link" href="/admin/users">Przejdź tu <i class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                    <div class="banner banner-2">
+                        <div class="banner__icon"><i class="fa-solid fa-user-plus"></i></div>
+                        <h2 class="banner__title">Zarządzaj zaproszeniami</h2>
+                        <p class="banner__apply">
+                            <a class="banner__link" href="/admin/invitations">Przejdź tu <i class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                    <div class="banner banner-3">
+                        <div class="banner__icon"><i class="fa-solid fa-user"></i></div>
+                        <h2 class="banner__title">Zarządzaj znajomymi</h2>
+                        <p class="banner__apply">
+                            <a class="banner__link" href="/admin/friends">Przejdź tu <i class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                    <div class="banner banner-4">
+                        <div class="banner__icon"><i class="fa-solid fa-bell"></i></div>
+                        <h2 class="banner__title">Zarządzaj powiadomieniami</h2>
+                        <p class="banner__apply">
+                            <a class="banner__link" href="/admin/notifications">Przejdź tu <i class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                    <div class="banner banner-5">
+                        <div class="banner__icon"><i class="fa-solid fa-message"></i></div>
+                        <h2 class="banner__title">Czyszczenie konwersacji</h2>
+                        <p class="banner__apply">
+                            <a class="banner__link" href="/admin/messages">Przejdź tu <i class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Zarejestruj się</title>
+        <link rel="icon" type="image/png" href="{{asset('images/chat.png')}}">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        <script src="https://kit.fontawesome.com/15901ecbea.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('auth') }}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('authjs') }}
+        {% endblock %}
+    </head>
+<body>
+    <div class="container active">
+        <div class="forms">
+            <div class="form signup">
+                <div class="welcome">
+                    <span class="icon"><img src="{{asset('images/chat.png')}}"></span>
+                    <span class="title">Tworzenie konta</span>
+                </div>
+                    {% form_theme registrationForm 'form/fields.html.twig' %}
+                    {{ form_start(registrationForm) }}
+                        <div class="input-field">
+                            {{ form_row(registrationForm.email) }}
+                            <i class="fa-solid fa-envelope icon"></i>
+                        </div>
+                        <div class="input-field">
+                            {{ form_row(registrationForm.firstname) }}
+                            <i class="fa-solid fa-user icon"></i>
+                        </div>
+                        <div class="input-field">
+                            {{ form_row(registrationForm.lastname) }}
+                            <i class="fa-solid fa-user icon"></i>
+                        </div>
+                        <div class="input-field">
+                            {{ form_row(registrationForm.plainPassword) }}
+                            <i class="fa-solid fa-lock icon"></i>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" class="password" placeholder="Powtórz hasło" required>
+                            <i class="fa-solid fa-lock icon"></i>
+                            <i class="fa-solid fa-eye-slash showHidePw"></i>
+                        </div>
+
+                        <div class="checkbox-text">
+                            <div class="checkbox-content">
+                                {{ form_row(registrationForm.agreeTerms) }}
+                            </div>
+                        </div>
+                        <div class="picture">
+                            {{ form_row(registrationForm.img) }}
+                        </div>
+                        <div class="input-field button">
+                            <input type="submit" value="Zarejestruj">
+                        </div>
+                    {{ form_end(registrationForm) }}
+
+                    <div class="login-signup">
+                        <span class="text">Posiadasz już konto?
+                            <a href="/" class="text login-link">Zaloguj teraz!</a>
+                        </span>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    
+

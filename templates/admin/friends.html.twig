@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel Administracyjny{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('admincss') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('admin') }}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="admin friends_admin">
+        <header>
+            <div>Witaj w panelu administracyjnym!</div>
+            <div><img src="/uploads/images/{{app.user.img}}" alt="">{{app.user.firstname ~ ' ' ~ app.user.lastname}}</div>
+        </header>
+        <main>
+            <div class="filter">
+                
+                <select class="js-select2" id="user" name="user_search">
+                    <option selected="selected">Wszyscy</option>
+                    {% for user in users %}
+                        <option value="{{user.id}}">{{user.firstname ~ ' ' ~ user.lastname ~ ' | ' ~ user.email ~ ' | ' ~ user.uuid}}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="js-select2" id="friend" name="friend_search">
+                    <option selected="selected">Wszyscy</option>
+                    {% for user in users %}
+                        <option value="{{user.id}}">{{user.firstname ~ ' ' ~ user.lastname ~ ' | ' ~ user.email ~ ' | ' ~ user.uuid}}</option>
+                    {% endfor %}
+                </select>
+
+                <button id="search_friends">Szukaj</button>
+            </div>
+            <div class="friends_list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Użytkownik</th>
+                            <th scope="col">Znajomy</th>
+                            <th scope="col">Od</th>
+                            <th scope="col" style="width:125px;">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody class="body_friends_list">
+                        
+                </table>
+                <div class="modal-loader">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </main>
+        <span class="admin-modal">
+            <span class="wrapper">
+                <form id="edit_friend_form">
+                    <h2>Edycja znajomego</h2>
+                    <label>Użytkownik</label>
+                    <select class="js-select2" id="user_modal" name="user">
+                    {% for user in users %}
+                        <option value="{{user.id}}">{{user.firstname ~ ' ' ~ user.lastname ~ ' | ' ~ user.email ~ ' | ' ~ user.uuid}}</option>
+                    {% endfor %}
+                    </select>
+                    <label>Znajomy</label>
+                    <select class="js-select2" id="friend_modal" name="friend">
+                    {% for user in users %}
+                        <option value="{{user.id}}">{{user.firstname ~ ' ' ~ user.lastname ~ ' | ' ~ user.email ~ ' | ' ~ user.uuid}}</option>
+                    {% endfor %}
+                    </select>
+                    <label>Od</label>
+                    <input type="text" name="from">
+                    <input type="hidden" name="friend_id">
+                    <span class="buttons">
+                        <a class="edit_modal_friend">Edytuj <i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="close_modal_info">Anuluj <i class="fa-solid fa-xmark"></i></a>
+                    </span>
+                </form>
+            </span>
+        </span>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".js-select2").select2({
+                tags: true
+            });
+        });
+        function changeSelect2(user, friend){
+            $('#user_modal').val(user).trigger('change');
+            $('#friend_modal').val(friend).trigger('change');
+        }
+    </script>
+{% endblock %}

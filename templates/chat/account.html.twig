@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="account_card">
+        <div class="modal-account">
+    
+            {{form_start(accountUpdate)}}
+                <span class="image">
+                    <img src="/uploads/images/{{app.user.img}}">
+                    <span class="change" onClick="document.getElementById('account_update_form_profile_image').click()"><i class="fa-solid fa-image"></i></span>
+                </span>
+                <div class="line"></div>
+                <label>UUID</label>
+                {{form_row(accountUpdate.uuid)}}
+                <label>Email</label>
+                {{form_row(accountUpdate.email)}}
+                <label>Imię</label>
+                {{form_row(accountUpdate.firstname)}}
+                <label>Nazwisko</label>
+                {{form_row(accountUpdate.lastname)}}
+                <label>Ostatni chat</label>
+                {{form_row(accountUpdate.last_chat)}}
+
+                <div class="line"></div>
+                <label>Hasło</label>
+                {{form_row(accountUpdate.plainPassword)}}
+
+                <label>Powtórz hasło</label>
+                <div class="input-field">
+                    <input type="password" class="password" placeholder="Powtórz hasło" name="pass2">
+                </div>
+                <div class="error"> </div>
+                <div class="line"></div>
+            {{form_end(accountUpdate)}}
+            <button type="submit">Zaktualizuj</button>
+        </div>
+    </div>
+
+{% endblock %}

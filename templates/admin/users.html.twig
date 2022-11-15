@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel Administracyjny{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('admincss') }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('admin') }}
+{% endblock %}
+
+{% block body %}
+    <div class="admin users">
+        <header>
+            <div>Witaj w panelu administracyjnym!</div>
+            <div><img src="/uploads/images/{{app.user.img}}" alt="">{{app.user.firstname ~ ' ' ~ app.user.lastname}}</div>
+        </header>
+        <main>
+            <div class="filter">
+                <input type="text" name="query" placeholder="Podaj imię, nazwisko, email lub uuid">
+                <select name="role">
+                    <option value="default" default>Wszyscy</option>
+                    <option value="user">Użytkownik</option>
+                    <option value="mod">Moderator</option>
+                    <option value="admin">Administrator</option>
+                    <option value="blocked">Zablokowany</option>
+                </select>
+                <button id="search_users">Szukaj</button>
+            </div>
+            <div class="users_list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">IMG</th>
+                            <th scope="col">Imię</th>
+                            <th scope="col">Nazwisko</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Rola</th>
+                            <th scope="col">Uuid</th>
+                            <th scope="col">Znajomi</th>
+                            <th scope="col" style="width:125px;">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody class="body_user_list">
+                        
+                    </tbody>
+                </table>
+                <div class="modal-loader">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </main>
+        <span class="admin-modal">
+            <span class="wrapper">
+                <form id="edit_user_form">
+                    <span><img src="" class="profile_image"></span>
+                    <label>Imię</label>
+                    <input type="text" value="N/A" name="firstname">
+                    <label>Nazwisko</label>
+                    <input type="text" value="N/A" name="lastname">
+                    <label>Uuid</label>
+                    <input type="text" value="N/A" name="uuid">
+                    <label>Email</label>
+                    <input type="email" value="N/A" name="email">
+                    <label>Rola</label>
+                    <select name="n_role">
+                        <option value="user">Użytytkownik</option>
+                        <option value="mod">Moderator</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                    <label>Znajomi</label>
+                    <input type="text" value="0" name="friends">
+                    <input type="hidden" name="user_id">
+                    <span class="buttons">
+                        <a class="edit_modal_user">Edytuj <i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="close_modal_info">Anuluj <i class="fa-solid fa-xmark"></i></a>
+                    </span>
+                </form>
+            </span>
+        </span>
+    </div>
+{% endblock %}
