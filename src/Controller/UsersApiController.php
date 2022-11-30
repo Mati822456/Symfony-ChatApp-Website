@@ -278,7 +278,7 @@ class UsersApiController extends AbstractController
         $method = $request->getMethod();
 
         if($method == 'GET'){
-            return $this->get_friends($id);
+            return $this->get_friends($id, $request);
         }else if($method == 'POST'){
             return $this->accept_friend($id);
         }else if($method == 'DELETE'){
@@ -290,7 +290,7 @@ class UsersApiController extends AbstractController
 
     // GET FRIENDS
 
-    public function get_friends($uuid): Response
+    public function get_friends($uuid, $request): Response
     {
 
         if($uuid != null){
@@ -310,13 +310,47 @@ class UsersApiController extends AbstractController
 
         }else{
 
-            $dql = "SELECT f user, IDENTITY(m.outgoing_msg) u_id, m.id, m.msg, m.status FROM App\Entity\Friend f LEFT JOIN App\Entity\Message m WITH ((m.incoming_msg = f.sec_user AND m.outgoing_msg = :user_id) OR (m.outgoing_msg = f.sec_user AND m.incoming_msg = :user_id)) WHERE NOT f.sec_user = :user_id AND f.user = :user_id GROUP BY f.sec_user ORDER BY m.id DESC";
-            $query = $this->em
+            if($request->get('query')){
+                $dql = "SELECT u.id FROM App\Entity\User u WHERE u.firstname LIKE :user_name OR u.lastname LIKE :user_name";
+                $query = $this->em
+                        ->createQuery($dql)
+                        ->setParameter('user_name', "%".$request->get('query')."%");
+                
+                $user = $query->getResult();
+
+                $array_id = [];
+
+                foreach($user as $element){
+                    if($element['id'] != $this->getUser()->getId()){
+                        $array_id[] = $element['id'];
+                    }
+                }
+
+                $string_id = implode(',' ,$array_id);
+
+                if(!empty($string_id)){
+                    $dql = "SELECT f user, IDENTITY(m.outgoing_msg) u_id, m.id, m.msg, m.status FROM App\Entity\Friend f LEFT JOIN App\Entity\Message m WITH ((m.incoming_msg = f.sec_user AND m.outgoing_msg = :user_id) OR (m.outgoing_msg = f.sec_user AND m.incoming_msg = :user_id)) WHERE (f.sec_user IN ($string_id) OR f.user IN ($string_id)) AND (f.sec_user <> :user_id AND f.user = :user_id) GROUP BY f.sec_user ORDER BY m.id DESC";
+
+                    $query = $this->em
                         ->createQuery($dql)
                         ->setParameter('user_id', $this->getUser()->getId());
 
-            $friends = $query->getResult();
+                    $friends = $query->getResult();
+                }else{
+                    $friends = [];
+                }
+                
+                
+            }else{
+                $dql = "SELECT f user, IDENTITY(m.outgoing_msg) u_id, m.id, m.msg, m.status FROM App\Entity\Friend f LEFT JOIN App\Entity\Message m WITH ((m.incoming_msg = f.sec_user AND m.outgoing_msg = :user_id) OR (m.outgoing_msg = f.sec_user AND m.incoming_msg = :user_id)) WHERE NOT f.sec_user = :user_id AND f.user = :user_id GROUP BY f.sec_user ORDER BY m.id DESC";
+                $query = $this->em
+                            ->createQuery($dql)
+                            ->setParameter('user_id', $this->getUser()->getId());
 
+                $friends = $query->getResult();
+            
+            }
+            
             foreach($friends as $mess){
                 if($mess['id'] != null){
                     if($mess['u_id'] != $this->getUser()->getId()){
@@ -326,9 +360,10 @@ class UsersApiController extends AbstractController
                             $this->em->flush();
                         }
                     }
-                    
+                        
                 }
             }
+
         }
         
         $data = $this->apiResponseData($friends);

@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
 let token = $('meta[name="token"]').attr('content');
+let query = '';
 
 $.ajaxSetup({
     beforeSend: function (xhr)
@@ -221,6 +222,19 @@ $.ajaxSetup({
                 }  
             });
         });
+    });
+
+    $(".search_button").click(function(){
+        query = $('#szukaj_znajomego').val();
+        getFriendList();
+    });
+
+    $('#szukaj_znajomego').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            query = $(this).val();
+            getFriendList();
+        }
     });
 
 // MESSAGE ACTIONS
@@ -482,6 +496,9 @@ function getFriendList(){
             $.ajax({
                 url: '/api/v1/friends',
                 type: 'GET',
+                data: {
+                    query: query,
+                },
                 dataType: 'json',
                 async: true,
                 jsonp: true,
@@ -491,7 +508,10 @@ function getFriendList(){
                     if(JSON.stringify(last_friend_list) === JSON.stringify(data)){
                     }else{
                         if(isEmpty(data)){
-
+                            last_friend_list = JSON.parse(JSON.stringify(data));
+                            friend_list = '<div class="card information">Nie znaleziono użytkowników!</div>';
+                            $('.friends').html(friend_list);
+                            friend_list = '';
                         }else{
                             last_friend_list = JSON.parse(JSON.stringify(data));
                             data.forEach(showFriends);
@@ -535,8 +555,10 @@ function getInvitationsList(){
                     if(JSON.stringify(last_invitations_list) === JSON.stringify(data)){
                     }else{
                         if(isEmpty(data)){
+                            last_invitations_list = JSON.parse(JSON.stringify(data));
                             invitations_list = '<div class="card" style="justify-content:center;"><span class="last_message" style="text-align:center">Pusto :(</span></div>';
                             $('.invitations').html(invitations_list);
+                            invitations_list = '';
                         }else{
                             last_invitations_list = JSON.parse(JSON.stringify(data));
                             data.forEach(showInvitations);
@@ -584,8 +606,10 @@ function getNotificationsList(){
                     if(JSON.stringify(last_notifications_list) === JSON.stringify(data)){
                     }else{
                         if(isEmpty(data)){
+                            last_notifications_list = JSON.parse(JSON.stringify(data));
                             notifications_list = '<div class="card notification" style="justify-content:center;"><span style="text-align:center">Pusto :(</span></div>';
                             $('.notifications').html(notifications_list);
+                            notifications_list = '';
                         }else{
                             last_notifications_list = JSON.parse(JSON.stringify(data));
                             data.forEach(showNotifications);

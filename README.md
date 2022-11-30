@@ -126,6 +126,7 @@ Password: User1234
   | -------- | ------ |
   | /api/v1/friends | GET |
   | /api/v1/friends/{uuid} | GET |
+  | /api/v1/friends?query= | GET |
   | /api/v1/friends/{uuid} | POST |
   | /api/v1/friends/{uuid} | DELETE |
   
