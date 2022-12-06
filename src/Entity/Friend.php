@@ -29,6 +29,10 @@ class Friend
     #[Groups(['api_public'])]
     private ?DateTime $created = null;
 
+    #[ORM\Column(options: ['default' => 1])]
+    #[Groups(['api_public'])]
+    private ?int $scheme = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -66,6 +70,18 @@ class Friend
     public function setCreated(DateTime $created): self
     {
         $this->created = $created;
+
+        return $this;
+    }
+
+    public function getScheme(): ?int
+    {
+        return $this->scheme;
+    }
+
+    public function setScheme(int $scheme): self
+    {
+        $this->scheme = $scheme;
 
         return $this;
     }

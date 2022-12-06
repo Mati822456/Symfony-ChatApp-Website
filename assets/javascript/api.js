@@ -392,6 +392,7 @@ if(getCurrentPathName() == '/chat'){
 
     }
 }
+let sch_number;
 
 function getUserInfoChat(){
     $(document).ready(function(){
@@ -404,6 +405,7 @@ function getUserInfoChat(){
 
             success: function(data){
                 let user = data.sec_user;
+                sch_number = data.scheme;
 
                 $('.profile_image').attr('src', "/uploads/images/" + user.img);
                 $(".flname").html(user.firstname + ' ' + user.lastname);
@@ -411,6 +413,7 @@ function getUserInfoChat(){
                 $(".send_button").data('uuid', user.uuid);
                 $(".friend_inf").data('uuid', user.uuid);
                 $("#wiadomosc").data('uuid', user.uuid);
+
                 chat_uuid = user.uuid; 
 
                 if(user.roles == "ROLE_USER"){
@@ -778,6 +781,25 @@ function showChat(item, index){
         last_timedate = time[0];
     }
 
+    let addCl;
+
+    switch(sch_number){
+        case 1:
+            addCl = "";
+            break;
+        case 2:
+            addCl = " sch_2";
+            break;
+        case 3:
+            addCl = " sch_3";
+            break;
+        case 4:
+            addCl = " sch_4";
+            break;
+        default:
+            addCl = "";
+    }
+
     if(item.outgoing_msg.uuid == my_uuid){
         let status = item.status;
 
@@ -789,9 +811,9 @@ function showChat(item, index){
             st_html = '<i class="fa-solid fa-circle-check"></i>';
         }
 
-        html += '<span class="details d_1"><img src="/uploads/images/' + item.outgoing_msg.img + '"><span class="out"><p>' + item.msg + '</p><span class="time">' + time[1] + ' ' + st_html + ' </span></span><a class="remove_msg" data-id="' + item.id + '"><i class="fa-solid fa-trash"></i></a></span>';
+        html += '<span class="details d_1"><img src="/uploads/images/' + item.outgoing_msg.img + '"><span class="out' + addCl + '"><p>' + item.msg + '</p><span class="time">' + time[1] + ' ' + st_html + ' </span></span><a class="remove_msg" data-id="' + item.id + '"><i class="fa-solid fa-trash"></i></a></span>';
     }else{
-        html += '<span class="details d_2"><img src="/uploads/images/' + item.outgoing_msg.img + '"><span class="in"><p>' + item.msg + '</p><span class="time">' + time[1] + ' </span></span></span>';
+        html += '<span class="details d_2"><img src="/uploads/images/' + item.outgoing_msg.img + '"><span class="in' + addCl + '"><p>' + item.msg + '</p><span class="time">' + time[1] + ' </span></span></span>';
     }
 
 }
@@ -937,6 +959,102 @@ function showChat(item, index){
         if(e.target.className == 'modal'){
             $(".modal").css("display", "none");
         }
+    });
+
+    $(document).on("click",".friend_color_scheme", function (){
+        $(document).ready(function(){
+            $.ajax({
+                url: '/api/v1/scheme/' + chat_uuid,
+                type: 'GET',
+                dataType: 'json',
+                async: true,
+                jsonp: false,
+
+                success: function(data){
+                    $(".color_schemes").css("display", "flex");
+                    radioCheck(data.scheme);
+                },
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    $(".color_schemes").css("display", "flex");
+                    radioCheck(1);
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Nie udało się pobrać wybranego schematu'
+                    });
+                }  
+            });
+        });
+    });
+
+    $(document).on("click",".cancel_scheme", function (){
+        $(".color_schemes").css("display", "none");
+    });
+
+    let scheme_number = 1;
+
+    function radioCheck(number){
+        scheme_number = number;
+        for(let i = 1; i <= 4; i++){
+            if(number == i){
+                $(".scheme_" + i + " .dot").addClass("active");
+                $(".scheme_" + i + " .dot.active").html('<i class="fa-solid fa-circle-check"></i>');
+            }else{
+                $(".scheme_" + i + " .dot").removeClass("active");
+                $(".scheme_" + i + " .dot").html('<i class="fa-solid fa-circle-dot"></i>');
+            }
+        }
+    }
+
+    $(document).on("click", ".scheme_1", function(){
+        radioCheck(1);
+    });
+    $(document).on("click", ".scheme_2", function(){
+        radioCheck(2);
+    });
+    $(document).on("click", ".scheme_3", function(){
+        radioCheck(3);
+    });
+    $(document).on("click", ".scheme_4", function(){
+        radioCheck(4);
+    });
+
+    $(document).on("click", ".save_scheme", function(){
+        $(document).ready(function(){
+            $.ajax({
+                url: '/api/v1/scheme/' + chat_uuid + '/' + scheme_number,
+                type: 'PATCH',
+                dataType: 'json',
+                async: true,
+                jsonp: false,
+
+                success: function(){
+                    $(".color_schemes").css("display", "none");
+                    sch_number = scheme_number;
+                    if(scheme_number == 2){
+                        $(".chat .messages .out").css('background-color', '#1abc9c');
+                        $(".chat .messages .in").css('background-color', '#2ecc71');
+                    }else if(scheme_number == 3){
+                        $(".chat .messages .out").css('background-color', '#9b59b6');
+                        $(".chat .messages .in").css('background-color', '#0984e3');
+                    }else if(scheme_number == 4){
+                        $(".chat .messages .out").css('background-color', '#ff9f43');
+                        $(".chat .messages .in").css('background-color', '#f19066');
+                    }else{
+                        $(".chat .messages .out").css('background-color', '#ff6348');
+                        $(".chat .messages .in").css('background-color', '#ff7f50');
+                    }
+                },
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Nie udało się wybrać schematu'
+                    });
+                }  
+            });
+        });
     });
 
     $(".close_info").click(function(){

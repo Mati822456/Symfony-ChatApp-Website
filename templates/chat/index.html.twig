@@ -12,7 +12,10 @@
                 <span class="text_3 flname">Ładowanie</span>
                 <span class="text_4 uuid">uuid: N/A</span>
                 <span class="s_info"><span class="status" style="background:#26de81;color:#ffffff;padding:0 5px 0 5px;border-radius:5px;">N/A</span></span>
-                <span class="links"><a class="friend_inf"><i class='bx bxs-info-circle icon' ></i></a></span>
+                <span class="links">
+                    <a class="friend_inf"><i class='bx bxs-info-circle icon' ></i></a>
+                    <a class="friend_color_scheme"><i class='bx bxs-cog icon' ></i></a>
+                </span>
             </span>
             <span class="messages">
                 
@@ -30,6 +33,90 @@
                 </div>
             </span>
         </span>
+    </div>
+    <div class="color_schemes">
+        <div class="schemes_content">
+            <span class="text">Dostępne schematy</span>
+
+            <div class="schemes_container">
+                <div class="scheme scheme_1">
+                    <span class="dot active"><i class="fa-solid fa-circle-check"></i></span>
+
+                    <span class="details d_1">
+                        <img src="/uploads/images/{{app.user.img}}">
+                        <span class="out"><p>Witaj!</p><span class="time">10:00 <i class="fa-solid fa-circle-check"></i> </span></span>
+                        <a class="remove_msg_scheme">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </span>
+                    <span class="details d_2">
+                        <img src="/uploads/images/user.png" class="profile_image">
+                        <span class="in"><p>Witaj!</p><span class="time">10:00 </span></span>
+                    </span>
+
+                    <span class="scheme_text">Schemat 1</span>
+                </div>
+
+                <div class="scheme scheme_2">
+                    <span class="dot"><i class="fa-solid fa-circle-dot"></i></span>
+
+                    <span class="details d_1">
+                        <img src="/uploads/images/{{app.user.img}}">
+                        <span class="out" style="background-color: #1abc9c;"><p>Witaj!</p><span class="time">10:00 <i class="fa-solid fa-circle-check"></i> </span></span>
+                        <a class="remove_msg_scheme">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </span>
+                    <span class="details d_2">
+                        <img src="/uploads/images/user.png" class="profile_image">
+                        <span class="in" style="background-color: #2ecc71;"><p>Witaj!</p><span class="time">10:00 </span></span>
+                    </span>
+
+                    <span class="scheme_text">Schemat 2</span>
+                </div>
+
+                <div class="scheme scheme_3">
+                    <span class="dot"><i class="fa-solid fa-circle-dot"></i></span>
+
+                    <span class="details d_1">
+                        <img src="/uploads/images/{{app.user.img}}">
+                        <span class="out" style="background-color: #9b59b6;"><p>Witaj!</p><span class="time">10:00 <i class="fa-solid fa-circle-check"></i> </span></span>
+                        <a class="remove_msg_scheme">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </span>
+                    <span class="details d_2">
+                        <img src="/uploads/images/user.png" class="profile_image">
+                        <span class="in" style="background-color: #0984e3;"><p>Witaj!</p><span class="time">10:00 </span></span>
+                    </span>
+
+                    <span class="scheme_text">Schemat 3</span>
+                </div>
+
+                <div class="scheme scheme_4">
+                    <span class="dot"><i class="fa-solid fa-circle-dot"></i></span>
+
+                    <span class="details d_1">
+                        <img src="/uploads/images/{{app.user.img}}">
+                        <span class="out" style="background-color: #ff9f43;"><p>Witaj!</p><span class="time">10:00 <i class="fa-solid fa-circle-check"></i> </span></span>
+                        <a class="remove_msg_scheme">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </span>
+                    <span class="details d_2">
+                        <img src="/uploads/images/user.png" class="profile_image">
+                        <span class="in" style="background-color: #f19066;"><p>Witaj!</p><span class="time">10:00 </span></span>
+                    </span>
+
+                    <span class="scheme_text">Schemat 4</span>
+                </div>
+            </div>
+
+            <div class="button_scheme">
+                <a class="save_scheme">Zapisz wybrany schemat <i class='bx bxs-save'></i></a>
+                <a class="cancel_scheme">Anuluj <i class="fa-solid fa-xmark"></i></a>
+            </div>
+        </div>
     </div>
     <script>
         $(".home").css("display", "flex");

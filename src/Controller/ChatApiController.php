@@ -171,4 +171,78 @@ class ChatApiController extends AbstractController
 
         return $this->json('Deleted', Response::HTTP_OK);
     }
+
+    #[Route('/api/v1/scheme/{uuid}/{scheme}', name: 'api_schemes')]
+    public function scheme(Request $request, $uuid = null, $scheme = null): Response
+    {
+
+        if(!$this->checkXRequest($request)){
+            return $this->render('errorpage.html.twig', [
+                'status' => 403, 
+                'message' => 'Forbidden'
+            ]);
+        }
+
+        $method = $request->getMethod();
+
+        if($method == 'GET'){
+            return $this->getScheme($uuid);
+        }else if($method == 'PATCH'){
+            if($scheme == null){
+                return $this->json('Bad request', Response::HTTP_BAD_REQUEST);
+            }
+            return $this->changeScheme($uuid, $scheme);
+        }else{
+            return $this->json('Method Not Allowed', Response::HTTP_METHOD_NOT_ALLOWED);
+        }
+
+    }
+
+    public function getScheme($uuid): Response
+    {
+        $user = $this->userrespository->findBy(['uuid' => $uuid]);
+
+        if(!$user){
+            return $this->json("Not Found", Response::HTTP_NOT_FOUND); 
+        }
+
+        $qb = $this->em->createQueryBuilder();
+    
+        $qb->select('f.scheme')
+            ->from('App\Entity\Friend', 'f')
+            ->where('f.user = '.$this->getUser()->getId())
+            ->andWhere('f.sec_user = '.$user[0]->getId());
+    
+        $qb = $qb->getQuery();
+            
+        $friends = $qb->execute()[0];
+
+        return $this->json($friends, Response::HTTP_OK);
+    }
+
+    public function changeScheme($uuid, $scheme): Response
+    {
+        $user = $this->userrespository->findBy(['uuid' => $uuid]);
+
+        if(!$user){
+            return $this->json("Not Found", Response::HTTP_NOT_FOUND); 
+        }
+
+        $qb = $this->em->createQueryBuilder();
+    
+        $qb->select('f')
+            ->from('App\Entity\Friend', 'f')
+            ->where('f.user = '.$this->getUser()->getId())
+            ->andWhere('f.sec_user = '.$user[0]->getId());
+    
+        $qb = $qb->getQuery();
+            
+        $friends = $qb->execute()[0];
+
+        $friends->setScheme($scheme);
+
+        $this->em->flush();
+
+        return $this->json('Ok', Response::HTTP_OK);
+    }
 }

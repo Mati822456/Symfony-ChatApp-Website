@@ -382,15 +382,18 @@ class UsersApiController extends AbstractController
 
         $friend = new Friend;
         $friend2 = new Friend;
+
         $me = $this->getUser();
 
         $friend->setUser($this->getUser())
                ->setSecUser($user)
-               ->setCreated(new \DateTime());
+               ->setCreated(new \DateTime())
+               ->setScheme(1);
 
         $friend2->setUser($user)
                 ->setSecUser($this->getUser())
-                ->setCreated(new \DateTime());
+                ->setCreated(new \DateTime())
+                ->setScheme(1);
 
         $user->setFriends($user->getFriends() + 1);
         $me->setFriends($me->getFriends() + 1);

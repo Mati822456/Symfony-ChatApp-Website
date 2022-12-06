@@ -162,6 +162,16 @@ Password: User1234
   
 </details>
 
+<details>
+  <summary>Scheme</summary>
+  
+  | ENDPOINT | METHOD |
+  | -------- | ------ |
+  | /api/v1/scheme/{uuid} | GET |
+  | /api/v1/scheme/{uuid}/{scheme_id} | PATCH |
+  
+</details>
+
 ### Admin
 
 <details>
@@ -177,7 +187,7 @@ Password: User1234
 </details>
 
 <details>
-  <summary>Theme</summary>
+  <summary>Invitations</summary>
   
   | ENDPOINT | METHOD |
   | -------- | ------ |
@@ -189,7 +199,7 @@ Password: User1234
 </details>
 
 <details>
-  <summary>Theme</summary>
+  <summary>Friends</summary>
   
   | ENDPOINT | METHOD |
   | -------- | ------ |
@@ -201,7 +211,7 @@ Password: User1234
 </details>
 
 <details>
-  <summary>Theme</summary>
+  <summary>Notifications</summary>
   
   | ENDPOINT | METHOD |
   | -------- | ------ |
@@ -213,7 +223,7 @@ Password: User1234
 </details>
 
 <details>
-  <summary>Theme</summary>
+  <summary>Messages</summary>
   
   | ENDPOINT | METHOD |
   | -------- | ------ |
